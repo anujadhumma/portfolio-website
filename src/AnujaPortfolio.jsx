@@ -6,6 +6,8 @@ import plantpal3 from './plantpal_3.png';
 import plantpal4 from './plantpal_4.png';
 import myPhoto from './Portfolioheropic.jpeg';
 
+
+
 const style = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -79,6 +81,72 @@ const style = `
   .about-text p { font-size: 15px; line-height: 1.9; color: var(--muted); margin-bottom: 18px; }
   .about-text p strong { color: var(--ink); font-weight: 500; }
   .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 44px; }
+  .about-carousel {
+  position: relative;
+  width: min(760px, 100%);
+  aspect-ratio: 16 / 9;
+  margin: 56px auto 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--cream);
+}
+.about-carousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.about-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(250,247,242,0.45);
+  background: rgba(26,23,20,0.38);
+  color: var(--cream);
+  font-size: 22px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.about-carousel-btn:hover {
+  background: var(--terra);
+  border-color: var(--terra);
+}
+
+.about-carousel-btn.prev {
+  left: 14px;
+}
+
+.about-carousel-btn.next {
+  right: 14px;
+}
+
+.about-carousel-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 14px;
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+}
+
+.about-carousel-dots button {
+  width: 7px;
+  height: 7px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(250,247,242,0.45);
+  cursor: pointer;
+}
+
+.about-carousel-dots button.active {
+  background: var(--cream);
+}
+  
   .stat-card { padding: 26px 22px; border: 1px solid var(--border); background: var(--cream); position: relative; overflow: hidden; }
   .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--terra); }
   .stat-card-num { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 600; color: var(--terra); display: block; }
@@ -107,7 +175,7 @@ const style = `
   .projects .section-num::after { background: var(--blush); }
   .projects .section-title { color: var(--cream); }
   .projects .section-title em { color: var(--blush); }
-  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,0.07); }
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--ink); }
   .project-card { background: var(--ink); padding: 0; transition: background 0.3s; position: relative; overflow: hidden; display: flex; flex-direction: column; }
   .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--terra); transform: scaleX(0); transform-origin: left; transition: transform 0.35s ease; z-index: 2; }
   .project-card:hover { background: rgba(255,255,255,0.03); }
@@ -125,9 +193,26 @@ const style = `
   .project-techs { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
   .project-tech { font-size: 10px; padding: 4px 10px; border: 1px solid rgba(255,255,255,0.1); color: rgba(250,247,242,0.35); letter-spacing: 0.05em; }
   .project-links { display: flex; gap: 12px; }
-  .project-link { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: rgba(250,247,242,0.4); border-bottom: 1px solid rgba(255,255,255,0.12); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
-  .project-link:hover { color: var(--terra); border-color: var(--terra); }
+  .project-link {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--cream);
+  border-bottom: 1px solid var(--terra);
+  padding-bottom: 4px;
+  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+}
 
+.project-link:hover {
+  color: var(--blush);
+  border-color: var(--blush);
+  transform: translateY(-1px);
+}
 
   .honors { background: var(--cream); }
   .honors-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
@@ -168,7 +253,34 @@ const style = `
 
   @media (max-width: 900px) {
     nav { padding: 16px 24px; }
-    .nav-links { display: none; }
+    .menu-toggle {
+  display: flex;
+}
+
+.nav-links {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  display: none;
+  flex-direction: column;
+  gap: 0;
+  background: rgba(250,247,242,0.98);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-links.open {
+  display: flex;
+}
+
+.nav-links li {
+  border-top: 1px solid var(--border);
+}
+
+.nav-links a {
+  display: block;
+  padding: 16px 24px;
+}
     .hero { grid-template-columns: 1fr; }
     .hero-left { padding: 100px 28px 48px; }
     .hero-right { height: 60vw; min-height: 300px; }
@@ -180,6 +292,217 @@ const style = `
     .resume-banner { padding: 16px 24px; }
     footer { padding: 20px 24px; }
   }
+    .resume-actions {
+  display: flex;
+  gap: 12px;
+}
+  .projects-grid {
+  align-items: start;
+}
+
+.project-card-text-only {
+  align-self: start;
+  border-top: 2px solid var(--terra);
+  background: var(--ink);
+}
+
+.project-card-text-only .project-body {
+  min-height: auto;
+  padding: 38px 34px 40px;
+}
+
+.project-card-text-only .project-desc {
+  flex: initial;
+}
+
+.project-card-text-only .project-techs {
+  margin-top: 28px;
+}
+    @media (max-width: 600px) {
+  nav {
+    padding: 14px 18px;
+  }
+
+  .nav-logo {
+    font-size: 20px;
+  }
+    .menu-toggle {
+  display: none;
+  width: 34px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--ink);
+}
+
+  .hero {
+    min-height: auto;
+    padding-top: 64px;
+  }
+
+  .hero-left {
+    padding: 56px 20px 36px;
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    line-height: 1.5;
+    letter-spacing: 0.14em;
+    align-items: flex-start;
+  }
+
+  .hero-eyebrow::before {
+    width: 24px;
+    margin-top: 8px;
+    flex-shrink: 0;
+  }
+
+  .hero-name {
+    font-size: 48px;
+  }
+
+  .hero-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .hero-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 30px;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-primary,
+  .btn-outline,
+  .resume-btn,
+  .contact-link {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hero-right {
+    height: auto;
+    min-height: 0;
+    padding: 0 20px 36px;
+  }
+
+  .hero-photo-wrap {
+    max-width: 320px;
+  }
+
+  .hero-photo {
+    aspect-ratio: 4 / 5;
+  }
+
+  .hero-accent-circle,
+  .hero-accent-circle2 {
+    display: none;
+  }
+
+  .resume-banner {
+    align-items: stretch;
+  }
+
+  .resume-banner > div {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  section {
+    padding: 64px 20px;
+  }
+
+  .section-header {
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-size: 36px;
+  }
+
+  .about-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    padding: 22px 20px;
+  }
+
+  .exp-item {
+    padding-left: 28px;
+    padding-bottom: 42px;
+  }
+
+  .exp-meta {
+    gap: 6px;
+    flex-direction: column;
+  }
+
+  .exp-company {
+    font-size: 20px;
+  }
+
+  .project-body {
+    padding: 26px 22px 30px;
+  }
+
+  .project-num {
+    font-size: 34px;
+    top: 12px;
+    right: 14px;
+  }
+
+  .leadership-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .honor-card,
+  .lead-card {
+    padding: 26px 22px;
+  }
+
+  .contact {
+    padding: 72px 20px;
+  }
+
+  .contact::before {
+    font-size: 96px;
+  }
+
+  .contact-sub {
+    font-size: 14px;
+    margin-bottom: 34px;
+  }
+
+  .contact-link.primary {
+    overflow-wrap: anywhere;
+  }
+    .resume-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+   .about-carousel {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  margin-top: 38px;
+}
+}
 `;
 
 const PROJECTS = [
@@ -323,7 +646,90 @@ function Carousel({ images, alt }) {
     </div>
   );
 }
+function AboutCarousel({ maxImages = 12 }) {
+  const [images, setImages] = useState([]);
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    let active = true;
+    const extensions = ["jpg", "jpeg", "png", "webp"];
+
+    const checkImage = (src) =>
+      new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(src);
+        img.onerror = () => resolve(null);
+        img.src = src;
+      });
+
+    async function loadImages() {
+      const found = [];
+
+      for (let i = 1; i <= maxImages; i++) {
+        const options = await Promise.all(
+          extensions.map((ext) => checkImage(`/aboutme${i}.${ext}`))
+        );
+
+        const match = options.find(Boolean);
+        if (match) found.push(match);
+      }
+
+      if (active) setImages(found);
+    }
+
+    loadImages();
+
+    return () => {
+      active = false;
+    };
+  }, [maxImages]);
+useEffect(() => {
+  if (images.length <= 1) return;
+
+  const timer = setInterval(() => {
+    setCurrent((prev) => (prev + 1) % images.length);
+  }, 3500);
+
+  return () => clearInterval(timer);
+}, [images.length]);
+  if (!images.length) return null;
+
+  return (
+    <div className="about-carousel">
+      <img src={images[current]} alt="Anuja's leadership and internship moments" />
+
+      {images.length > 1 && (
+        <>
+          <button
+            className="about-carousel-btn prev"
+            onClick={() => setCurrent((current - 1 + images.length) % images.length)}
+          >
+            ‹
+          </button>
+
+          <button
+            className="about-carousel-btn next"
+            onClick={() => setCurrent((current + 1) % images.length)}
+          >
+            ›
+          </button>
+
+          <div className="about-carousel-dots">
+            {images.map((_, i) => (
+              <button
+                key={i}
+                className={i === current ? "active" : ""}
+                onClick={() => setCurrent(i)}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
 export default function Portfolio() {
+  const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
     const els = document.querySelectorAll(".fade-in");
     const io = new IntersectionObserver(
@@ -340,13 +746,28 @@ export default function Portfolio() {
 
       {/* NAV */}
       <nav>
-        <a href="#home" className="nav-logo">Anuja <span>Dhumma</span></a>
-        <ul className="nav-links">
-          {["About", "Experience", "Projects", "Honors", "Leadership", "Contact"].map((l) => (
-            <li key={l}><a href={`#${l.toLowerCase()}`}>{l}</a></li>
-          ))}
-        </ul>
-      </nav>
+  <a href="#home" className="nav-logo">Anuja <span>Dhumma</span></a>
+
+  <button
+    className="menu-toggle"
+    onClick={() => setMenuOpen(!menuOpen)}
+    aria-label="Toggle navigation menu"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
+    {["About", "Experience", "Projects", "Honors", "Leadership", "Contact"].map((l) => (
+      <li key={l}>
+        <a href={`#${l.toLowerCase()}`} onClick={() => setMenuOpen(false)}>
+          {l}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
 
       {/* HERO */}
       <section className="hero" id="home">
@@ -377,7 +798,7 @@ export default function Portfolio() {
       {/* RESUME BANNER */}
       <div className="resume-banner">
         <p className="resume-banner-text"><strong>My Resume</strong> - View or download my full CV</p>
-        <div style={{ display: "flex", gap: 12 }}>
+        <div className="resume-actions">
           <a href="/AnujaDhumma_Resume.pdf" target="_blank" rel="noreferrer" className="resume-btn">
             View Resume
           </a>
@@ -422,7 +843,7 @@ export default function Portfolio() {
               ))}
             </div>
           </div>
-
+           
           <div className="fade-in">
             {[
               { cat: "Programming", tags: ["Python", "SQL", "Java", "C", "C++", "JavaScript", "HTML", "CSS", "MATLAB"] },
@@ -439,7 +860,9 @@ export default function Portfolio() {
               </div>
             ))}
           </div>
+           
         </div>
+        <AboutCarousel /> 
       </section>
 
       {/* EXPERIENCE */}
@@ -472,15 +895,21 @@ export default function Portfolio() {
         </div>
         <div className="projects-grid">
           {PROJECTS.map((p, i) => (
-            <div className="project-card fade-in" key={i}>
+           <div className={`project-card fade-in ${!p.imgSrc ? "project-card-text-only" : ""}`} key={i}>
               <span className="project-num">0{i + 1}</span>
-              <div className="project-img-wrap">
-  {!p.imgSrc ? null : Array.isArray(p.imgSrc) ? (
-    <Carousel images={p.imgSrc} alt={p.imgAlt} />
-  ) : (
-    <img src={p.imgSrc} alt={p.imgAlt} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", filter: "brightness(0.85)" }} />
-  )}
-</div>
+              {p.imgSrc && (
+  <div className="project-img-wrap">
+    {Array.isArray(p.imgSrc) ? (
+      <Carousel images={p.imgSrc} alt={p.imgAlt} />
+    ) : (
+      <img
+        src={p.imgSrc}
+        alt={p.imgAlt}
+        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", filter: "brightness(0.85)" }}
+      />
+    )}
+  </div>
+)}
               <div className="project-body">
                 <p className="project-tag">{p.tag}</p>
                 <h3 className="project-name">{p.name}</h3>
@@ -490,7 +919,7 @@ export default function Portfolio() {
                 </div>
                 <div className="project-links">
                   {p.github && (
-                    <a href={p.github} target="_blank" rel="noreferrer" className="project-link">GitHub</a>
+                    <a href={p.github} target="_blank" rel="noreferrer" className="project-link">GitHub Link</a>
                   )}
                   {p.demo && (
                     <a href={p.demo} target="_blank" rel="noreferrer" className="project-link">Live Demo</a>
