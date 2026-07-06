@@ -1659,7 +1659,7 @@ export default function Portfolio() {
         </p>
         <div className="contact-links">
           <a href="mailto:Anuja.Dhumma@rockets.utoledo.edu" className="contact-link primary">Email Me At anuja.dhumma@rockets.utoledo.edu</a>
-          <a href="https://www.linkedin.com/in/anuja-dhumma-1bb579206/" target="_blank" rel="noreferrer" className="contact-link">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/anujadhumma" target="_blank" rel="noreferrer" className="contact-link">LinkedIn</a>
           <a href="https://github.com/anujadhumma" target="_blank" rel="noreferrer" className="contact-link">GitHub</a>
         </div>
       </section>
