@@ -930,13 +930,114 @@ const style = `
     opacity: 1;
     transform: translateY(0);
   }
+/* COURSEWORK */
+  .coursework {
+    background: var(--warm-white);
+  }
+
+  .coursework .section-num::after {
+    background: var(--terra);
+  }
+
+  .coursework-intro {
+    max-width: 680px;
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  .coursework-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 64px;
+  }
+
+  .coursework-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 16px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--ink);
+    letter-spacing: 0.03em;
+  }
+
+  .coursework-chip span {
+    color: var(--terra);
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .coursework-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .course-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+
+  .course-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+  }
+
+  .course-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, var(--terra), var(--blush));
+  }
+
+  .course-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+
+  .course-card-desc {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .course-techs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .course-tech {
+    font-size: 11px;
+    padding: 4px 12px;
+    border: 1px solid var(--border);
+    color: var(--terra);
+    letter-spacing: 0.05em;
+    background: var(--warm-white);
+  }
 
   /* TABLET + MOBILE */
   @media (max-width: 900px) {
     nav {
       padding: 16px 24px;
     }
-
+.coursework-grid {
+      grid-template-columns: 1fr;
+    }
     .menu-toggle {
       display: flex;
     }
@@ -1230,12 +1331,21 @@ const EXPERIENCE = [
   },
   {
     company: "University of Toledo, IT Help Desk (ECC)",
-    role: "IT Help Desk Assistant",
-    date: "Aug 2022 - Present",
+    role: "Level 2 Student IT Consultant",
+    date: "May 2025 - Present",
     bullets: [
       "Provide technical support for desktops, printers, mobile devices, and software across academic and administrative departments.",
       "Deploy and maintain OS images, support system maintenance, machine refreshes, and user onboarding for new IT tools.",
       "Resolve an average of 40+ tickets per semester, reducing downtime by 20% through effective troubleshooting.",
+    ],
+  },{
+    company: "University of Toledo, IT Help Desk (ECC)",
+    role: "IT Help Desk Assistant",
+    date: "Oct 2022 - May 2025",
+    bullets: [
+      "Regularly check all computer labs in the engineering department to ensure proper functionality of computers, projectors, and printers.",
+      "Provide hands-on support and assistance to lab users, ensuring equipment is working optimally and troubleshooting any technical issues that arose.",
+      "Assist with the setup and maintenance of lab equipment, ensuring all devices are functional and ready for use by students and faculty.",
     ],
   },
   {
@@ -1326,6 +1436,8 @@ const captions = [
   "Phi Sigma Rho Recruitment Week 2026, organized and executed by me as Director of Recruitment",
   "First Solar Inuagration Ceremony, Trinity, AL, 2024",
   "First Solar Inuagration Ceremony, Trinity, AL, 2024",
+  "Fall 2025 Academic Student Research Award, University of Toledo, for contributions to undergraduate research in the Adaptive RF & Plasma Lab",
+  "Plasma Activated Water Research, Adaptive RF & Plasma Lab, University of Toledo, 2025",
 ];
   useEffect(() => {
     let active = true;
@@ -1405,6 +1517,33 @@ useEffect(() => {
     </div>
   );
 }
+const COURSEWORK_CHIPS = [
+  "Data Structures", "Feedback Systems", "Machine Learning", "Operating Systems", "Computer Architecture",
+  "Digital Logic", "Embedded Systems", "Software Engineering", "OOP", "Database Management", "Network Security","Computer Security", "Electronics and Circuits",
+];
+
+const COURSE_CARDS = [
+  {
+    title: "Academic Project Collection",
+    desc: "Implemented core data structures and algorithms in C++ including linked lists, stacks, queues, binary search trees, AVL trees, heaps, hash tables, graphs, and sorting algorithms. Focused on algorithm efficiency, memory management, recursion, and object-oriented design.",
+    tech: ["C++", "Data Structures", "Algorithms", "OOP"],
+  },
+  {
+    title: "Systems Programming",
+    desc: "Developed multiple low-level programming assignments involving memory management, file handling, recursion, pointers, and dynamic data structures. Strengthened understanding of computer architecture, operating systems concepts, and efficient program design.",
+    tech: ["C", "C++", "Linux", "Pointers", "Memory Management"],
+  },
+  {
+    title: "Digital Logic & Computer Architecture",
+    desc: "Designed and simulated digital circuits, finite state machines, combinational and sequential logic, and processor components. Applied concepts of Boolean algebra, timing analysis, and hardware design.",
+    tech: ["Digital Logic", "Circuit Design", "Computer Architecture", "SPICE"],
+  },
+  {
+    title: "Object-Oriented Programming",
+    desc: "Built multiple Java applications demonstrating encapsulation, inheritance, polymorphism, interfaces, exception handling, and GUI development. Projects included banking systems, inventory management, and other object-oriented applications.",
+    tech: ["Java", "JavaFX", "OOP", "Software Design"],
+  },
+];
 export default function Portfolio() {
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
@@ -1436,7 +1575,7 @@ export default function Portfolio() {
   </button>
 
   <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
-    {["About", "Experience", "Projects", "Honors", "Leadership", "Contact"].map((l) => (
+    {["About", "Experience", "Projects","Coursework", "Honors", "Leadership", "Contact"].map((l) => (
       <li key={l}>
         <a href={`#${l.toLowerCase()}`} onClick={() => setMenuOpen(false)}>
           {l}
@@ -1527,7 +1666,7 @@ export default function Portfolio() {
               { cat: "Cloud & IT", tags: ["Active Directory", "SCCM", "Intune", "OS Imaging", "RDP", "Cloud Fundamentals"] },
               { cat: "Data & Analytics", tags: ["Power BI", "JMP", "Excel", "PostgreSQL", "Automation", "Data Visualization"] },
               { cat: "Development", tags: ["React", "Node.js", "Express", "REST APIs", "Supabase", "Git & GitHub"] },
-              { cat: "Engineering", tags: ["OOP", "Data Structures", "Operating Systems", "Machine Learning","Computer Security","Database Management", "Network Security", "Computer Architecture", "Digital Logic", "Feedback Control", "SPICE", "SolidWorks"] },
+              { cat: "Engineering", tags: ["SPICE", "SolidWorks"] },
             ].map(({ cat, tags }) => (
               <div className="skill-category" key={cat}>
                 <p className="skill-cat-title">{cat}</p>
@@ -1607,11 +1746,41 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
+{/* COURSEWORK */}
+      <section className="coursework" id="coursework">
+        <div className="section-header fade-in">
+          <p className="section-num">04</p>
+          <h2 className="section-title">Relevant <em>Coursework</em></h2>
+        </div>
 
+        <p className="coursework-intro fade-in">
+          Throughout my Computer Science and Electrical Engineering curriculum, I have completed coursework in data structures, algorithms, operating systems, digital logic, computer architecture, embedded systems, software engineering, and object-oriented programming. These courses strengthened my understanding of core engineering principles and efficient software design.
+        </p>
+
+        <div className="coursework-chips fade-in">
+          {COURSEWORK_CHIPS.map((chip) => (
+            <div className="coursework-chip" key={chip}>
+              <span>✓</span> {chip}
+            </div>
+          ))}
+        </div>
+
+        <div className="coursework-grid">
+          {COURSE_CARDS.map((c, i) => (
+            <div className="course-card fade-in" key={i}>
+              <h3 className="course-card-title">{c.title}</h3>
+              <p className="course-card-desc">{c.desc}</p>
+              <div className="course-techs">
+                {c.tech.map((t) => <span className="course-tech" key={t}>{t}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
       {/* HONORS */}
       <section className="honors" id="honors">
         <div className="section-header fade-in">
-          <p className="section-num">04
+          <p className="section-num">05
           </p>
           <h2 className="section-title">Honors &amp; <em>Recognition</em></h2>
         </div>
@@ -1629,7 +1798,7 @@ export default function Portfolio() {
       {/* LEADERSHIP */}
       <section className="leadership" id="leadership">
         <div className="section-header fade-in">
-          <p className="section-num">05</p>
+          <p className="section-num">06</p>
           <h2 className="section-title">Leadership &amp; <em>Involvement</em></h2>
         </div>
         <div className="leadership-grid">
@@ -1652,7 +1821,7 @@ export default function Portfolio() {
 
       {/* CONTACT */}
       <section className="contact" id="contact">
-        <p className="section-num" style={{ justifyContent: "center" }}>06</p>
+        <p className="section-num" style={{ justifyContent: "center" }}>07</p>
         <h2 className="section-title" style={{ marginBottom: 20 }}>Let's <em>Connect</em></h2>
         <p className="contact-sub">
           I am currently seeking internships and full-time opportunities in cloud computing, IT systems, systems engineering, data analytics, and solutions engineering.
