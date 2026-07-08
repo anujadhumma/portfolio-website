@@ -1293,7 +1293,7 @@ const PROJECTS = [
     desc: "An AI-powered recipe assistant that generates ingredient-based recipes through a conversational interface. Built with prompt engineering techniques to guide the model toward accurate, useful cooking suggestions. Deployed on Railway with a React frontend and Node.js backend.",
     tech: ["React", "Node.js", "OpenRouter API", "Prompt Engineering", "Railway"],
     github: "https://github.com/anujadhumma/chefbot-cooking-assistant",
-    demo: null,
+    demo: "https://chefbot-cooking-assistant.onrender.com/",
     imgSrc: chefbotImg,
     imgAlt: "ChefBot screenshot",
   },
